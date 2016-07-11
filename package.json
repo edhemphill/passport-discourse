@@ -1,0 +1,22 @@
+{
+  "name": "passport-discourse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edhemphill/passport-discourse.git"
+  },
+  "author": "Ed Hemphill <npm@wigwag.com> (http://www.wigwag.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/edhemphill/passport-discourse/issues"
+  },
+  "homepage": "https://github.com/edhemphill/passport-discourse#readme",
+  "dependencies": {
+    "passport-strategy": "^1.0.0"
+  }
+}
