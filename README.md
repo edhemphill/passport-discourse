@@ -14,16 +14,17 @@ var passportDiscourse = require("../../passport-discourse").Strategy,
 ...
 
 router.get("/auth/discourse_sso", passport.authenticate("discourse"));
-router.get(passportDiscourse.route_callback, passport.authenticate("discourse", {
+router.get("/auth/discourse_sso/callback", passport.authenticate("discourse", {
   successRedirect: proxyPath + "/auth/done",
   failureRedirect: proxyPath + "/login"
 }));
 
 if (auth.discourse_sso.enabled) {
   var auth_discourse = new passportDiscourse({
-    secret: auth.discourse_sso.discourse_secret,
-    discourse_url: auth.discourse_sso.discourse_url,
-    debug: auth.discourse_sso.debug
+    secret: "SSOSecretConfiguredInDiscourse",
+    discourseURL: "https://discourse.example.com",
+    callbackURL: "https://example.com/auth/discourse_sso/callback",
+    debug: false
   },function(accessToken, refreshToken, profile, done){
       usedAuthentication("discourse");
       done(null, profile);
