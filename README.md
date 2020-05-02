@@ -9,26 +9,35 @@ See more on this protocol in this [thread](https://meta.discourse.org/t/using-di
 
 ```javascript
 ...
-var passportDiscourse = require("../../passport-discourse").Strategy,
+var passportDiscourse = require("passport-discourse").Strategy,
 
 ...
 
-router.get("/auth/discourse_sso", passport.authenticate("discourse"));
-router.get(passportDiscourse.route_callback, passport.authenticate("discourse", {
-  successRedirect: proxyPath + "/auth/done",
-  failureRedirect: proxyPath + "/login"
+app.get("/auth/discourse_sso", passport.authenticate("discourse"));
+app.get(passportDiscourse.route_callback, passport.authenticate("discourse", {
+  successRedirect: "/auth/done",
+  failureRedirect: "/login"
 }));
 
 if (auth.discourse_sso.enabled) {
   var auth_discourse = new passportDiscourse({
-    secret: auth.discourse_sso.discourse_secret,
-    discourse_url: auth.discourse_sso.discourse_url,
-    debug: auth.discourse_sso.debug
+    secret: "discourse sso secret",
+    discourse_url: "https://discourse.example.com/",
+    debug: false
   },function(accessToken, refreshToken, profile, done){
-      usedAuthentication("discourse");
+      //usedAuthentication("discourse");
       done(null, profile);
   });
   passport.use(auth_discourse);
+
+  passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  });
+
 }
 
 
